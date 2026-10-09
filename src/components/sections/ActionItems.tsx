@@ -1,4 +1,4 @@
-import { AlertTriangle, Clock, User, Zap } from "lucide-react";
+import { AlertTriangle, Clock, User, Zap, Cpu } from "lucide-react";
 import type { ActionItem } from "../../types";
 
 interface ActionItemsProps {
@@ -15,11 +15,13 @@ export function ActionItems({ actions }: ActionItemsProps) {
     );
   }
 
-  // Sort: urgent first, then high
+  // Sort: urgent first, then high — within each group, higher AI score first
   const sorted = [...actions].sort((a, b) => {
     if (a.priority === "urgent" && b.priority !== "urgent") return -1;
     if (a.priority !== "urgent" && b.priority === "urgent") return 1;
-    return 0;
+    const aScore = a.aiScore ?? 0;
+    const bScore = b.aiScore ?? 0;
+    return bScore - aScore;
   });
 
   return (
@@ -75,12 +77,23 @@ function ActionCard({ action }: { action: ActionItem }) {
           {isUrgent ? <Zap className="w-3 h-3" fill="currentColor" /> : <Clock className="w-3 h-3" />}
           {action.priority}
         </span>
-        {action.deadline && (
-          <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
-            <Clock className="w-3.5 h-3.5" />
-            {action.deadline}
-          </span>
-        )}
+        <div className="flex items-center gap-2">
+          {action.aiScore !== null && (
+            <span
+              className="inline-flex items-center gap-1 rounded-md bg-blue-500/10 px-2 py-0.5 text-xs text-blue-400 border border-blue-500/20"
+              title={`AI confidence: ${Math.round(action.aiScore * 100)}%`}
+            >
+              <Cpu className="w-3 h-3" />
+              {Math.round(action.aiScore * 100)}%
+            </span>
+          )}
+          {action.deadline && (
+            <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
+              <Clock className="w-3.5 h-3.5" />
+              {action.deadline}
+            </span>
+          )}
+        </div>
       </div>
 
       {/* Task text */}

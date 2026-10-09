@@ -3,7 +3,7 @@ import { ActionItems } from "./sections/ActionItems";
 import { DecisionsMade } from "./sections/DecisionsMade";
 import { TldrSummary } from "./sections/TldrSummary";
 import { DirectMentions } from "./sections/DirectMentions";
-import { Users, MessageCircle, CheckCircle2, AlertCircle } from "lucide-react";
+import { Users, MessageCircle, CheckCircle2, AlertCircle, Cpu } from "lucide-react";
 
 interface DashboardProps {
   result: AnalysisResult;
@@ -16,6 +16,22 @@ export function Dashboard({ result, onReset }: DashboardProps) {
 
   return (
     <div className="max-w-5xl mx-auto px-4 pb-16 animate-fade-in">
+      {/* AI badge */}
+      <div className="mb-4 flex justify-center">
+        <div
+          className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-medium ${
+            result.aiEnabled
+              ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+              : "bg-slate-800/60 text-slate-400 border border-slate-700"
+          }`}
+        >
+          <Cpu className={`w-4 h-4 ${result.aiEnabled ? "animate-pulse" : ""}`} />
+          {result.aiEnabled
+            ? "Powered by On-Device Transformers.js (WebAssembly / Local)"
+            : "Heuristic analysis (AI model was unavailable)"}
+        </div>
+      </div>
+
       {/* Stats bar */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
         <StatCard

@@ -5,6 +5,8 @@ export interface ActionItem {
   deadline: string | null;
   priority: "high" | "urgent";
   context: string;
+  /** AI confidence score 0..1 — null when heuristic fallback was used */
+  aiScore: number | null;
 }
 
 export interface Decision {
@@ -31,6 +33,8 @@ export interface AnalysisResult {
   mentions: MentionItem[];
   totalMessages: number;
   participants: string[];
+  /** Whether on-device AI model was used for this analysis */
+  aiEnabled: boolean;
 }
 
 export interface ParsedMessage {

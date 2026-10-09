@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Header } from "./components/Header";
 import { InputSection } from "./components/InputSection";
 import { ScanningOverlay } from "./components/ScanningOverlay";
 import { Dashboard } from "./components/Dashboard";
 import { analyzeConversation } from "./analyzer/analyzer";
+import { preloadModel, getModelStatus, onModelProgress } from "./analyzer/aiModel";
 import type { AnalysisResult } from "./types";
 
 type AppState = "input" | "scanning" | "results";
@@ -11,15 +12,34 @@ type AppState = "input" | "scanning" | "results";
 export default function App() {
   const [state, setState] = useState<AppState>("input");
   const [result, setResult] = useState<AnalysisResult | null>(null);
+  const [scanStage, setScanStage] = useState("Loading on-device AI model...");
+  const [modelReady, setModelReady] = useState(getModelStatus() === "ready");
 
-  const handleAnalyze = (text: string) => {
+  // Preload the AI model in the background on mount
+  useEffect(() => {
+    onModelProgress((status) => {
+      if (status === "ready") setModelReady(true);
+    });
+    preloadModel();
+  }, []);
+
+  const handleAnalyze = async (text: string) => {
     setState("scanning");
-    // 1-second scanning animation, then show results
-    setTimeout(() => {
-      const analysis = analyzeConversation(text);
+    try {
+      const analysis = await analyzeConversation(text, (msg) => setScanStage(msg));
       setResult(analysis);
       setState("results");
-    }, 1000);
+    } catch (err) {
+      console.error("Analysis failed:", err);
+      // Fallback: still show results with heuristic-only analysis
+      try {
+        const analysis = await analyzeConversation(text);
+        setResult(analysis);
+        setState("results");
+      } catch {
+        setState("input");
+      }
+    }
   };
 
   const handleReset = () => {
@@ -38,7 +58,7 @@ export default function App() {
 
       {/* Content */}
       <div className="relative z-10">
-        <Header />
+        <Header modelReady={modelReady} />
 
         {state === "input" && (
           <InputSection onAnalyze={handleAnalyze} isAnalyzing={false} />
@@ -47,7 +67,7 @@ export default function App() {
         {state === "scanning" && (
           <>
             <InputSection onAnalyze={handleAnalyze} isAnalyzing={true} />
-            <ScanningOverlay />
+            <ScanningOverlay stage={scanStage} modelReady={modelReady} />
           </>
         )}
 

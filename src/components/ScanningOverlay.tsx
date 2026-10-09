@@ -1,6 +1,11 @@
-import { Loader2, Search, Sparkles, ListChecks } from "lucide-react";
+import { Loader2, Search, Sparkles, ListChecks, Cpu } from "lucide-react";
 
-export function ScanningOverlay() {
+interface ScanningOverlayProps {
+  stage: string;
+  modelReady: boolean;
+}
+
+export function ScanningOverlay({ stage, modelReady }: ScanningOverlayProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/80 backdrop-blur-sm animate-fade-in">
       <div className="relative w-full max-w-md mx-4">
@@ -21,7 +26,7 @@ export function ScanningOverlay() {
               Analyzing conversation...
             </h3>
             <p className="text-sm text-slate-400 mb-6">
-              Extracting tasks, decisions, and unanswered questions
+              {stage}
             </p>
 
             {/* Progress steps */}
@@ -29,6 +34,22 @@ export function ScanningOverlay() {
               <ScanStep icon={Search} label="Scanning messages" delay="0ms" />
               <ScanStep icon={ListChecks} label="Identifying action items" delay="200ms" />
               <ScanStep icon={Sparkles} label="Generating summary" delay="400ms" />
+            </div>
+
+            {/* AI badge */}
+            <div className="mt-6 w-full">
+              <div
+                className={`flex items-center gap-2 rounded-lg px-3 py-2 text-xs font-medium transition-all ${
+                  modelReady
+                    ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
+                    : "bg-slate-800/50 text-slate-500 border border-slate-700"
+                }`}
+              >
+                <Cpu className={`w-3.5 h-3.5 ${modelReady ? "animate-pulse" : ""}`} />
+                {modelReady
+                  ? "On-device AI inference active (WebAssembly)"
+                  : "Heuristic analysis (AI model loading...)"}
+              </div>
             </div>
           </div>
         </div>
