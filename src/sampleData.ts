@@ -31,6 +31,29 @@ export const SLACK_SAMPLE = `[9:02 AM] Sarah Chen: Morning team! We need to fina
 [9:55 AM] Jennifer Park: Checkout test passed. Everything looks good. No issues found.
 [9:56 AM] David Kim: Great news. I'll monitor the error dashboard through the afternoon just in case.`;
 
+export const SPRINT_SYNC_SAMPLE = `[Mon 10:00 AM] Scrum Master: Sprint 14 kickoff — we have 2 weeks. Let's confirm priorities.
+[Mon 10:02 AM] Priya: I think the auth refactor should be top priority. It's blocking 3 other tickets.
+[Mon 10:04 AM] Jake: Agreed on auth. I can take the backend portion if someone handles the frontend.
+[Mon 10:05 AM] Maya: I'll handle the frontend auth refactor. Should be done by Wednesday.
+[Mon 10:07 AM] Scrum Master: @Priya can you create the Jira tickets for the auth refactor subtasks? Need them by EOD.
+[Mon 10:08 AM] Priya: On it. I'll create 4 tickets — API, UI, testing, and migration.
+[Mon 10:10 AM] Jake: Quick decision — are we upgrading to React 19 this sprint or waiting?
+[Mon 10:11 AM] Maya: Let's wait until next sprint. Too risky to do auth refactor and framework upgrade together.
+[Mon 10:12 AM] Scrum Master: Agreed, React 19 pushed to Sprint 15. @Jake please document the upgrade plan in the wiki.
+[Mon 10:15 AM] Tom: I have a blocker on the payment service. The webhook tests are flaky in staging.
+[Mon 10:16 AM] Tom: @Priya can you look at the staging webhook logs? I think it's a config issue.
+[Mon 10:17 AM] Priya: I'll check after lunch. Should be quick.
+[Mon 10:20 AM] Scrum Master: Important — the stakeholder demo is next Friday. Everyone needs to have their features demo-ready by Thursday.
+[Mon 10:21 AM] Jake: Noted. I'll make sure the API is deployed to staging by Thursday morning.
+[Mon 10:23 AM] Maya: @Scrum Master do we need slide decks for the demo or just live walkthrough?
+[Mon 10:24 AM] Scrum Master: Live walkthrough is fine. Just make sure the staging environment is stable.
+[Mon 10:25 AM] Tom: I need access to the production monitoring dashboard. Who can grant that?
+[Mon 10:26 AM] Priya: @Tom I'll add you to the Datadog team. You should have access by EOD.
+[Mon 10:30 AM] Scrum Master: Final call — are we committing to 35 story points this sprint?
+[Mon 10:31 AM] Jake: 35 is doable if the auth refactor goes smoothly.
+[Mon 10:32 AM] Maya: I'm comfortable with 35. We have good velocity.
+[Mon 10:33 AM] Scrum Master: Locked in — 35 story points for Sprint 14. Let's make it happen.`;
+
 export const WHATSAPP_SAMPLE = `10/9/26, 8:15\u202fPM - Raj: Hey everyone, we need to finalize the potluck menu for Saturday. It's getting last minute!
 10/9/26, 8:16\u202fPM - Priya: I'll make biryani. That should be enough for 10-15 people right?
 10/9/26, 8:17\u202fPM - Amit: @Priya yes that's perfect. Can you also bring some raita on the side?

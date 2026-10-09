@@ -10,37 +10,26 @@ html,
 body {
   margin: 0;
   padding: 0;
-  background-color: #0a0f1d;
+  background-color: #0a0d12;
   color: #e2e8f0;
   font-family: "Inter", system-ui, sans-serif;
 }
 
-/* Scrollbar styling */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0a0d12;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(148, 163, 184, 0.15);
+  background: #1e293b;
   border-radius: 3px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(148, 163, 184, 0.3);
+  background: #334155;
 }
 
 textarea {
   field-sizing: content;
-}
-
-/* Glass utility */
-@layer components {
-  .glass {
-    @apply backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] shadow-2xl rounded-2xl;
-  }
-  .glass-hover {
-    @apply backdrop-blur-xl bg-white/[0.04] border border-white/[0.08] shadow-2xl rounded-2xl transition-all duration-200 hover:bg-white/[0.07] hover:border-white/[0.12];
-  }
 }

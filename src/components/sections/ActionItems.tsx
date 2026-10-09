@@ -6,11 +6,13 @@ interface ActionItemsProps {
 }
 
 export function ActionItems({ actions }: ActionItemsProps) {
+  const urgentCount = actions.filter((a) => a.priority === "urgent").length;
+
   if (actions.length === 0) {
     return (
-      <div className="rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-6 shadow-2xl">
-        <SectionHeader />
-        <p className="text-slate-500 text-sm py-4 text-center">No action items detected in this conversation.</p>
+      <div className="rounded-lg border border-rose-500/20 bg-rose-500/[0.03] p-5">
+        <SectionHeader count={0} urgentCount={0} />
+        <p className="text-slate-600 text-xs py-3 text-center font-mono">// No action items detected in this conversation.</p>
       </div>
     );
   }
@@ -24,9 +26,9 @@ export function ActionItems({ actions }: ActionItemsProps) {
   });
 
   return (
-    <div>
-      <SectionHeader count={actions.length} />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+    <div className="rounded-lg border border-rose-500/20 bg-rose-500/[0.03] p-5">
+      <SectionHeader count={actions.length} urgentCount={urgentCount} />
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-3 mt-3">
         {sorted.map((action) => (
           <ActionCard key={action.id} action={action} />
         ))}
@@ -35,17 +37,17 @@ export function ActionItems({ actions }: ActionItemsProps) {
   );
 }
 
-function SectionHeader({ count }: { count?: number }) {
+function SectionHeader({ count, urgentCount }: { count: number; urgentCount: number }) {
   return (
-    <div className="flex items-center gap-3 mb-1">
-      <div className="w-9 h-9 rounded-xl bg-rose-500/15 flex items-center justify-center">
-        <AlertTriangle className="w-5 h-5 text-rose-400" />
+    <div className="flex items-center gap-2.5">
+      <div className="w-7 h-7 rounded-md bg-rose-500/10 border border-rose-500/20 flex items-center justify-center">
+        <AlertTriangle className="w-3.5 h-3.5 text-rose-400" />
       </div>
-      <h2 className="text-lg font-bold text-white">
-        <span className="text-rose-400">🔴</span> Urgent Actions & Deadlines
+      <h2 className="text-xs font-bold text-white font-mono tracking-wider uppercase">
+        {urgentCount > 0 ? "[LEVEL 1] Critical Actions" : "Urgent Actions & Deadlines"}
       </h2>
-      {count !== undefined && (
-        <span className="ml-1 rounded-full bg-white/[0.08] border border-white/[0.06] px-2.5 py-0.5 text-xs font-semibold text-slate-400">
+      {count > 0 && (
+        <span className="rounded bg-rose-500/10 border border-rose-500/20 px-1.5 py-0.5 text-[10px] font-mono font-semibold text-rose-400">
           {count}
         </span>
       )}
@@ -58,53 +60,50 @@ function ActionCard({ action }: { action: ActionItem }) {
 
   return (
     <div
-      className={`rounded-2xl border p-5 transition-all duration-200 animate-slide-up backdrop-blur-xl shadow-2xl hover:-translate-y-0.5 ${
+      className={`rounded-md border p-4 transition-all duration-200 animate-slide-up ${
         isUrgent
-          ? "border-rose-500/20 bg-rose-500/[0.06] hover:border-rose-500/35"
-          : "border-amber-500/15 bg-amber-500/[0.04] hover:border-amber-500/30"
+          ? "border-rose-500/20 bg-rose-500/[0.04] hover:border-rose-500/30"
+          : "border-amber-500/15 bg-amber-500/[0.02] hover:border-amber-500/25"
       }`}
     >
-      {/* Priority badge */}
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex items-center justify-between mb-2.5">
         <span
-          className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide ${
+          className={`inline-flex items-center gap-1.5 rounded px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider font-mono ${
             isUrgent
-              ? "bg-rose-500/15 text-rose-400 border border-rose-500/30"
-              : "bg-amber-500/15 text-amber-400 border border-amber-500/30"
+              ? "bg-rose-500/10 text-rose-400 border border-rose-500/25"
+              : "bg-amber-500/10 text-amber-400 border border-amber-500/25"
           }`}
         >
-          {isUrgent ? <Zap className="w-3 h-3" fill="currentColor" /> : <Clock className="w-3 h-3" />}
+          {isUrgent ? <Zap className="w-2.5 h-2.5" fill="currentColor" /> : <Clock className="w-2.5 h-2.5" />}
           {action.priority}
         </span>
         <div className="flex items-center gap-2">
           {action.aiScore !== null && (
             <span
-              className="inline-flex items-center gap-1 rounded-full bg-gradient-to-r from-cyan-500/10 to-violet-500/10 px-2 py-0.5 text-xs text-cyan-300 border border-cyan-400/20"
+              className="inline-flex items-center gap-1 rounded bg-slate-900 border border-slate-800 px-1.5 py-0.5 text-[10px] text-slate-400 font-mono"
               title={`AI confidence: ${Math.round(action.aiScore * 100)}%`}
             >
-              <Cpu className="w-3 h-3" />
+              <Cpu className="w-2.5 h-2.5" />
               {Math.round(action.aiScore * 100)}%
             </span>
           )}
           {action.deadline && (
-            <span className="inline-flex items-center gap-1.5 text-xs text-slate-400">
-              <Clock className="w-3.5 h-3.5" />
+            <span className="inline-flex items-center gap-1 text-[11px] text-slate-500 font-mono">
+              <Clock className="w-3 h-3" />
               {action.deadline}
             </span>
           )}
         </div>
       </div>
 
-      {/* Task text */}
-      <p className="text-slate-200 text-sm leading-relaxed mb-4">{action.task}</p>
+      <p className="text-slate-200 text-sm leading-relaxed mb-3">{action.task}</p>
 
-      {/* Footer */}
-      <div className="flex items-center gap-2 text-xs text-slate-500 pt-3 border-t border-white/[0.06]">
+      <div className="flex items-center gap-2 text-[11px] text-slate-600 pt-2 border-t border-slate-800/50">
         <div className="flex items-center gap-1.5">
-          <User className="w-3.5 h-3.5" />
+          <User className="w-3 h-3" />
           <span className="text-slate-300 font-medium">{action.assignee}</span>
         </div>
-        <span className="text-slate-700">•</span>
+        <span className="text-slate-800">·</span>
         <span>requested by {action.context}</span>
       </div>
     </div>

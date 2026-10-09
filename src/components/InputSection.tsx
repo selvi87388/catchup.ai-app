@@ -1,17 +1,15 @@
 import { useState } from "react";
-import { Zap, FileText, MessageSquare, Loader2, Trash2 } from "lucide-react";
-import { SLACK_SAMPLE, WHATSAPP_SAMPLE } from "../sampleData";
+import { Zap, Trash2, Terminal } from "lucide-react";
+import { SLACK_SAMPLE, WHATSAPP_SAMPLE, SPRINT_SYNC_SAMPLE } from "../sampleData";
 
 interface InputSectionProps {
   onAnalyze: (text: string) => void;
   isAnalyzing: boolean;
 }
 
-export function InputSection({ onAnalyze, isAnalyzing }: InputSectionProps) {
+export function LeftPanel({ onAnalyze, isAnalyzing }: InputSectionProps) {
   const [text, setText] = useState("");
 
-  const handleSlack = () => setText(SLACK_SAMPLE);
-  const handleWhatsApp = () => setText(WHATSAPP_SAMPLE);
   const handleClear = () => setText("");
 
   const handleAnalyze = () => {
@@ -19,74 +17,69 @@ export function InputSection({ onAnalyze, isAnalyzing }: InputSectionProps) {
     onAnalyze(text);
   };
 
-  return (
-    <div className="max-w-3xl mx-auto px-4 pb-10">
-      {/* Demo buttons */}
-      <div className="flex flex-wrap items-center justify-center gap-3 mb-6">
-        <button
-          onClick={handleSlack}
-          disabled={isAnalyzing}
-          className="inline-flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-xl px-4 py-2.5 text-sm font-medium text-slate-200 transition-all duration-200 hover:-translate-y-0.5 hover:border-indigo-400/30 hover:bg-white/[0.08] hover:text-white shadow-lg disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-        >
-          <MessageSquare className="w-4 h-4 text-indigo-400" />
-          Load Project Slack Chat
-        </button>
-        <button
-          onClick={handleWhatsApp}
-          disabled={isAnalyzing}
-          className="inline-flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-xl px-4 py-2.5 text-sm font-medium text-slate-200 transition-all duration-200 hover:-translate-y-0.5 hover:border-emerald-400/30 hover:bg-white/[0.08] hover:text-white shadow-lg disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:translate-y-0"
-        >
-          <MessageSquare className="w-4 h-4 text-emerald-400" />
-          Load WhatsApp Group Chat
-        </button>
-      </div>
+  const chips: { label: string; sample: string }[] = [
+    { label: "Team Slack", sample: SLACK_SAMPLE },
+    { label: "WhatsApp Log", sample: WHATSAPP_SAMPLE },
+    { label: "Sprint Sync", sample: SPRINT_SYNC_SAMPLE },
+  ];
 
-      {/* Text area */}
-      <div className="relative">
-        <div className="absolute -top-3 left-5 z-10 inline-flex items-center gap-1.5 rounded-lg bg-[#0a0f1d] px-2.5 py-1 text-xs font-medium text-slate-500 border border-white/[0.08]">
-          <FileText className="w-3.5 h-3.5" />
-          Paste Conversation Log
+  return (
+    <div className="rounded-lg border border-slate-800 bg-[#111620] h-full flex flex-col">
+      {/* Panel header */}
+      <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800">
+        <div className="flex items-center gap-2">
+          <Terminal className="w-4 h-4 text-slate-500" />
+          <span className="text-xs font-mono font-semibold text-slate-400 tracking-wider uppercase">Raw Chat Log Chunk</span>
         </div>
-        <textarea
-          value={text}
-          onChange={(e) => setText(e.target.value)}
-          disabled={isAnalyzing}
-          placeholder={"Paste your group chat here...\n\nFormat examples:\n[10:30 AM] Name: message\n10/9/26, 8:15 PM - Name: message\nName: message\n\nOr click a demo button above to try it instantly."}
-          className="w-full h-72 rounded-2xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-xl p-5 text-sm text-slate-200 placeholder-slate-600 outline-none transition-all duration-200 resize-y focus:border-indigo-400/30 focus:ring-2 focus:ring-indigo-500/10 disabled:opacity-50 font-mono leading-relaxed shadow-2xl"
-        />
         {text && !isAnalyzing && (
           <button
             onClick={handleClear}
-            className="absolute top-3 right-3 inline-flex items-center gap-1 rounded-lg bg-white/[0.06] px-2.5 py-1 text-xs text-slate-400 hover:text-slate-200 hover:bg-white/[0.12] transition-colors backdrop-blur-sm"
+            className="inline-flex items-center gap-1 rounded text-[11px] font-medium text-slate-500 hover:text-slate-300 transition-colors"
           >
-            <Trash2 className="w-3.5 h-3.5" />
+            <Trash2 className="w-3 h-3" />
             Clear
           </button>
         )}
       </div>
 
-      {/* Analyze button */}
-      <div className="mt-8 flex flex-col items-center gap-3">
+      {/* Preset chips */}
+      <div className="flex items-center gap-2 px-4 py-3 border-b border-slate-800/50">
+        {chips.map((chip) => (
+          <button
+            key={chip.label}
+            onClick={() => setText(chip.sample)}
+            disabled={isAnalyzing}
+            className="rounded-md border border-slate-800 bg-slate-900/40 px-2.5 py-1 text-[11px] font-medium text-slate-400 transition-all duration-150 hover:border-slate-700 hover:bg-slate-800/60 hover:text-slate-200 disabled:opacity-40 disabled:cursor-not-allowed whitespace-nowrap"
+          >
+            {chip.label}
+          </button>
+        ))}
+      </div>
+
+      {/* Textarea */}
+      <div className="flex-1 px-4 py-3 min-h-0">
+        <textarea
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          disabled={isAnalyzing}
+          placeholder={"// Paste your group chat export here...\n//\n// Supported formats:\n//   [10:30 AM] Name: message\n//   10/9/26, 8:15 PM - Name: message\n//   Name: message\n//\n// Or click a preset chip above to load a demo."}
+          className="w-full h-full min-h-[340px] rounded-md border border-slate-800 bg-[#0a0d12] p-4 text-[13px] text-slate-300 placeholder-slate-700 outline-none transition-all duration-200 resize-none focus:border-slate-700 disabled:opacity-50 font-mono leading-relaxed"
+        />
+      </div>
+
+      {/* Action button */}
+      <div className="px-4 pb-4 pt-1">
         <button
           onClick={handleAnalyze}
           disabled={isAnalyzing || text.trim().length < 10}
-          className="inline-flex items-center gap-2.5 rounded-xl bg-gradient-to-r from-blue-600 to-indigo-600 px-10 py-4 text-base font-bold text-white shadow-lg shadow-indigo-500/25 transition-all duration-200 hover:from-blue-500 hover:to-indigo-500 hover:shadow-xl hover:shadow-indigo-500/30 hover:-translate-y-0.5 disabled:opacity-30 disabled:cursor-not-allowed disabled:shadow-none disabled:hover:translate-y-0 active:scale-[0.98]"
+          className="w-full inline-flex items-center justify-center gap-2.5 rounded-lg bg-emerald-500/10 border border-emerald-500/30 px-6 py-3 text-sm font-bold text-emerald-400 transition-all duration-200 hover:bg-emerald-500/15 hover:border-emerald-500/40 disabled:opacity-30 disabled:cursor-not-allowed"
         >
-          {isAnalyzing ? (
-            <>
-              <Loader2 className="w-5 h-5 animate-spin" />
-              Analyzing...
-            </>
-          ) : (
-            <>
-              <Zap className="w-5 h-5" fill="white" />
-              Analyze & Catch Up
-            </>
-          )}
+          <Zap className="w-4 h-4" fill="currentColor" />
+          {isAnalyzing ? "Running Pipeline..." : "Run Local Intelligence Pipeline"}
         </button>
         {text.trim().length < 10 && !isAnalyzing && (
-          <p className="text-xs text-slate-600">
-            Paste a conversation or load a demo to get started
+          <p className="text-[11px] text-slate-700 text-center mt-2 font-mono">
+            // Waiting for input data...
           </p>
         )}
       </div>
