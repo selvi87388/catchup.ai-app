@@ -4,13 +4,17 @@ import { SLACK_SAMPLE, WHATSAPP_SAMPLE, SPRINT_SYNC_SAMPLE } from "../sampleData
 
 interface InputSectionProps {
   onAnalyze: (text: string) => void;
+  onClear: () => void;
   isAnalyzing: boolean;
 }
 
-export function LeftPanel({ onAnalyze, isAnalyzing }: InputSectionProps) {
+export function LeftPanel({ onAnalyze, onClear, isAnalyzing }: InputSectionProps) {
   const [text, setText] = useState("");
 
-  const handleClear = () => setText("");
+  const handleClear = () => {
+    setText("");
+    onClear();
+  };
 
   const handleAnalyze = () => {
     if (text.trim().length < 10) return;

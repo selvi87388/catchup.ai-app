@@ -20,6 +20,12 @@ export default function App() {
     preloadModel();
   }, []);
 
+  const handleClear = () => {
+    setResult(null);
+    setIsAnalyzing(false);
+    setScanStage("Loading on-device AI model...");
+  };
+
   const handleAnalyze = async (text: string) => {
     setIsAnalyzing(true);
     try {
@@ -45,7 +51,7 @@ export default function App() {
       <div className="flex-1 flex flex-col lg:flex-row gap-4 px-4 pb-6 max-w-[1600px] w-full mx-auto">
         {/* Left column — 40% */}
         <div className="lg:w-[40%] lg:min-w-[40%] shrink-0">
-          <LeftPanel onAnalyze={handleAnalyze} isAnalyzing={isAnalyzing} />
+          <LeftPanel onAnalyze={handleAnalyze} onClear={handleClear} isAnalyzing={isAnalyzing} />
         </div>
 
         {/* Right column — 60% */}
