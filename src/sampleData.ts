@@ -31,39 +31,39 @@ export const SLACK_SAMPLE = `[9:02 AM] Sarah Chen: Morning team! We need to fina
 [9:55 AM] Jennifer Park: Checkout test passed. Everything looks good. No issues found.
 [9:56 AM] David Kim: Great news. I'll monitor the error dashboard through the afternoon just in case.`;
 
-export const WHATSAPP_SAMPLE = `[8:15 PM] Raj: Hey everyone, we need to finalize the potluck menu for Saturday. It's getting last minute!
-[8:16 PM] Priya: I'll make biryani. That should be enough for 10-15 people right?
-[8:17 PM] Amit: @Priya yes that's perfect. Can you also bring some raita on the side?
-[8:18 PM] Priya: Sure, I'll bring raita too. No problem.
-[8:19 PM] Sneha: I can make paneer tikka. Should I marinate it tonight or is it fine to do Saturday morning?
-[8:20 PM] Raj: @Sneha better to marinate tonight, it tastes better. Don't forget to get extra skewers.
-[8:21 PM] Amit: We decided to do the setup at 4pm, right? Need to confirm the venue booking.
-[8:22 PM] Raj: Yes, confirmed — the community hall is booked from 3pm to 9pm. That's the plan.
-[8:23 PM] Vikram: I need to know the final headcount by Thursday so I can order the drinks. This is important!
-[8:24 PM] Sneha: @Vikram I'll send you the final count by Thursday morning. Last I checked we had 18 confirmed.
-[8:25 PM] Vikram: 18 people. OK, I'll order accordingly. Need to place the order by Thursday evening.
-[8:27 PM] Priya: Who is bringing the speakers for music? We can't have a party without music!
-[8:28 PM] Amit: I'll bring my portable speaker. It's pretty loud, should be fine for the hall.
-[8:29 PM] Sneha: @Amit can you also bring the aux cable? Last time we forgot and it was a mess.
-[8:30 PM] Amit: Haha yes, I'll bring the aux cable and a backup Bluetooth speaker too. Just in case.
-[8:31 PM] Raj: Important — everyone agreed that we're splitting costs equally? Last time it was messy.
-[8:32 PM] Priya: Yes, equal split. We'll use Splitwise. Everyone should join the group.
-[8:33 PM] Vikram: Agreed. I'll create the Splitwise group tonight and share the link.
-[8:34 PM] Sneha: What about decorations? Do we need balloons and banners or keep it simple?
-[8:35 PM] Raj: Let's keep it simple. We'll just get some fairy lights. @Priya can you pick those up from Amazon? Need them by Friday.
-[8:36 PM] Priya: I'll order the fairy lights right now. Should arrive by Thursday with Prime delivery.
-[8:38 PM] Amit: One more thing — parking at the venue is limited. We should carpool. Who's coming from Whitefield?
-[8:39 PM] Sneha: I'm coming from Whitefield! @Amit we can carpool if you want.
-[8:40 PM] Amit: @Sneha perfect. I'll pick you up at 3:15pm. Don't be late this time!
-[8:42 PM] Vikram: Has anyone told Karan about the potluck? He's not in this group.
-[8:43 PM] Raj: @Vikram good point. Someone needs to call Karan and invite him. Can you do it by tomorrow?
-[8:44 PM] Vikram: I'll call him tonight itself. No worries.
-[8:45 PM] Priya: Also — we need to finalize the games list. Last year antakshari was a hit. Should we do it again?
-[8:46 PM] Sneha: Yes to antakshari! We should also do a quiz round. I can prepare the questions.
-[8:47 PM] Raj: Great. So we've decided on antakshari and a quiz round. @Sneha please prepare 20 questions by Saturday morning.
-[8:48 PM] Sneha: Will do! I'll make them fun — mix of Bollywood and general knowledge.
-[8:50 PM] Amit: @Raj do we have a backup plan if it rains? The hall has outdoor access we were planning to use.
-[8:51 PM] Raj: The hall has indoor space too. We'll just move everything inside if it rains. No issue.
-[8:52 PM] Vikram: Just confirmed — Karan is in! He said he'll bring gulab jamun for dessert.
-[8:53 PM] Priya: Awesome, that completes the menu. We have biryani, paneer tikka, gulab jamun, drinks, and snacks.
-[8:55 PM] Raj: Perfect. Final checklist: menu sorted, venue confirmed, music covered, carpool arranged, games planned. Don't forget to join the Splitwise group!`;
+export const WHATSAPP_SAMPLE = `10/9/26, 8:15\u202fPM - Raj: Hey everyone, we need to finalize the potluck menu for Saturday. It's getting last minute!
+10/9/26, 8:16\u202fPM - Priya: I'll make biryani. That should be enough for 10-15 people right?
+10/9/26, 8:17\u202fPM - Amit: @Priya yes that's perfect. Can you also bring some raita on the side?
+10/9/26, 8:18\u202fPM - Priya: Sure, I'll bring raita too. No problem.
+10/9/26, 8:19\u202fPM - Sneha: I can make paneer tikka. Should I marinate it tonight or is it fine to do Saturday morning?
+10/9/26, 8:20\u202fPM - Raj: @Sneha better to marinate tonight, it tastes better. Don't forget to get extra skewers.
+10/9/26, 8:21\u202fPM - Amit: We decided to do the setup at 4pm, right? Need to confirm the venue booking.
+10/9/26, 8:22\u202fPM - Raj: Yes, confirmed — the community hall is booked from 3pm to 9pm. That's the plan.
+10/9/26, 8:23\u202fPM - Vikram: I need to know the final headcount by Thursday so I can order the drinks. This is important!
+10/9/26, 8:24\u202fPM - Sneha: @Vikram I'll send you the final count by Thursday morning. Last I checked we had 18 confirmed.
+10/9/26, 8:25\u202fPM - Vikram: 18 people. OK, I'll order accordingly. Need to place the order by Thursday evening.
+10/9/26, 8:27\u202fPM - Priya: Who is bringing the speakers for music? We can't have a party without music!
+10/9/26, 8:28\u202fPM - Amit: I'll bring my portable speaker. It's pretty loud, should be fine for the hall.
+10/9/26, 8:29\u202fPM - Sneha: @Amit can you also bring the aux cable? Last time we forgot and it was a mess.
+10/9/26, 8:30\u202fPM - Amit: Haha yes, I'll bring the aux cable and a backup Bluetooth speaker too. Just in case.
+10/9/26, 8:31\u202fPM - Raj: Important — everyone agreed that we're splitting costs equally? Last time it was messy.
+10/9/26, 8:32\u202fPM - Priya: Yes, equal split. We'll use Splitwise. Everyone should join the group.
+10/9/26, 8:33\u202fPM - Vikram: Agreed. I'll create the Splitwise group tonight and share the link.
+10/9/26, 8:34\u202fPM - Sneha: What about decorations? Do we need balloons and banners or keep it simple?
+10/9/26, 8:35\u202fPM - Raj: Let's keep it simple. We'll just get some fairy lights. @Priya can you pick those up from Amazon? Need them by Friday.
+10/9/26, 8:36\u202fPM - Priya: I'll order the fairy lights right now. Should arrive by Thursday with Prime delivery.
+10/9/26, 8:38\u202fPM - Amit: One more thing — parking at the venue is limited. We should carpool. Who's coming from Whitefield?
+10/9/26, 8:39\u202fPM - Sneha: I'm coming from Whitefield! @Amit we can carpool if you want.
+10/9/26, 8:40\u202fPM - Amit: @Sneha perfect. I'll pick you up at 3:15pm. Don't be late this time!
+10/9/26, 8:42\u202fPM - Vikram: Has anyone told Karan about the potluck? He's not in this group.
+10/9/26, 8:43\u202fPM - Raj: @Vikram good point. Someone needs to call Karan and invite him. Can you do it by tomorrow?
+10/9/26, 8:44\u202fPM - Vikram: I'll call him tonight itself. No worries.
+10/9/26, 8:45\u202fPM - Priya: Also — we need to finalize the games list. Last year antakshari was a hit. Should we do it again?
+10/9/26, 8:46\u202fPM - Sneha: Yes to antakshari! We should also do a quiz round. I can prepare the questions.
+10/9/26, 8:47\u202fPM - Raj: Great. So we've decided on antakshari and a quiz round. @Sneha please prepare 20 questions by Saturday morning.
+10/9/26, 8:48\u202fPM - Sneha: Will do! I'll make them fun — mix of Bollywood and general knowledge.
+10/9/26, 8:50\u202fPM - Amit: @Raj do we have a backup plan if it rains? The hall has outdoor access we were planning to use.
+10/9/26, 8:51\u202fPM - Raj: The hall has indoor space too. We'll just move everything inside if it rains. No issue.
+10/9/26, 8:52\u202fPM - Vikram: Just confirmed — Karan is in! He said he'll bring gulab jamun for dessert.
+10/9/26, 8:53\u202fPM - Priya: Awesome, that completes the menu. We have biryani, paneer tikka, gulab jamun, drinks, and snacks.
+10/9/26, 8:55\u202fPM - Raj: Perfect. Final checklist: menu sorted, venue confirmed, music covered, carpool arranged, games planned. Don't forget to join the Splitwise group!`;
