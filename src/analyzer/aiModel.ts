@@ -44,7 +44,13 @@ export async function initModel(): Promise<SentimentPipeline | null> {
 
   loadPromise = (async () => {
     try {
-      const { pipeline, env } = await import("@xenova/transformers");
+      // Dynamically import from CDN so Vite doesn't bundle the package
+      const moduleUrl =
+        "https://cdn.jsdelivr.net/npm/@xenova/transformers@2.17.2";
+      const transformersModule: any = await import(
+        /* @vite-ignore */ moduleUrl
+      );
+      const { pipeline, env } = transformersModule;
 
       // Configure for browser WASM inference
       env.allowLocalModels = false;
