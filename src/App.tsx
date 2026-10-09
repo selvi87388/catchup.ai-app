@@ -15,7 +15,6 @@ export default function App() {
   const [scanStage, setScanStage] = useState("Loading on-device AI model...");
   const [modelReady, setModelReady] = useState(getModelStatus() === "ready");
 
-  // Preload the AI model in the background on mount
   useEffect(() => {
     onModelProgress((status) => {
       if (status === "ready") setModelReady(true);
@@ -31,7 +30,6 @@ export default function App() {
       setState("results");
     } catch (err) {
       console.error("Analysis failed:", err);
-      // Fallback: still show results with heuristic-only analysis
       try {
         const analysis = await analyzeConversation(text);
         setResult(analysis);
@@ -48,13 +46,24 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 relative overflow-x-hidden">
-      {/* Background glow accents */}
+    <div className="min-h-screen bg-[#0a0f1d] relative overflow-x-hidden">
+      {/* Ambient radial glow background */}
       <div className="pointer-events-none fixed inset-0 overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-blue-600/10 rounded-full blur-[120px]"></div>
-        <div className="absolute top-1/3 right-0 w-[300px] h-[300px] bg-cyan-600/5 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-0 left-0 w-[400px] h-[300px] bg-blue-600/5 rounded-full blur-[100px]"></div>
+        <div className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-indigo-600/12 rounded-full blur-[140px] animate-float"></div>
+        <div className="absolute top-[30%] right-[-5%] w-[400px] h-[400px] bg-violet-600/8 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-[10%] left-[-5%] w-[450px] h-[350px] bg-cyan-600/8 rounded-full blur-[120px]"></div>
+        <div className="absolute top-[60%] left-[30%] w-[300px] h-[300px] bg-blue-600/6 rounded-full blur-[100px]"></div>
       </div>
+
+      {/* Subtle grid overlay */}
+      <div
+        className="pointer-events-none fixed inset-0 opacity-[0.015]"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.5) 1px, transparent 1px)",
+          backgroundSize: "48px 48px",
+        }}
+      />
 
       {/* Content */}
       <div className="relative z-10">
@@ -76,7 +85,7 @@ export default function App() {
         )}
 
         {/* Footer */}
-        <footer className="text-center pb-8 pt-4 px-4">
+        <footer className="text-center pb-10 pt-6 px-4">
           <p className="text-xs text-slate-600">
             CatchUp AI — All processing happens in your browser. No data leaves your device.
           </p>

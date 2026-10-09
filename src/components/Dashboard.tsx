@@ -17,15 +17,16 @@ export function Dashboard({ result, onReset }: DashboardProps) {
   return (
     <div className="max-w-5xl mx-auto px-4 pb-16 animate-fade-in">
       {/* AI badge */}
-      <div className="mb-4 flex justify-center">
+      <div className="mb-6 flex justify-center">
         <div
-          className={`inline-flex items-center gap-2 rounded-lg px-4 py-2 text-xs font-medium ${
+          className={`inline-flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium backdrop-blur-sm transition-all ${
             result.aiEnabled
-              ? "bg-blue-500/10 text-blue-400 border border-blue-500/20"
-              : "bg-slate-800/60 text-slate-400 border border-slate-700"
+              ? "bg-gradient-to-r from-cyan-500/10 to-violet-500/10 text-cyan-300 border border-cyan-400/25 shadow-lg shadow-cyan-500/10"
+              : "bg-white/[0.04] text-slate-400 border border-white/[0.08]"
           }`}
         >
-          <Cpu className={`w-4 h-4 ${result.aiEnabled ? "animate-pulse" : ""}`} />
+          <span className={`w-2 h-2 rounded-full ${result.aiEnabled ? "bg-cyan-400 animate-pulse-dot text-cyan-400" : "bg-slate-600"}`}></span>
+          <Cpu className="w-4 h-4" />
           {result.aiEnabled
             ? "Powered by On-Device Transformers.js (WebAssembly / Local)"
             : "Heuristic analysis (AI model was unavailable)"}
@@ -38,43 +39,47 @@ export function Dashboard({ result, onReset }: DashboardProps) {
           icon={MessageCircle}
           label="Messages"
           value={result.totalMessages}
-          color="text-slate-300"
-          bg="bg-slate-800/60"
+          iconColor="text-slate-300"
+          iconBg="bg-slate-500/15"
+          dotColor="bg-slate-400"
         />
         <StatCard
           icon={Users}
           label="Participants"
           value={result.participants.length}
-          color="text-blue-400"
-          bg="bg-blue-500/10"
+          iconColor="text-blue-400"
+          iconBg="bg-blue-500/15"
+          dotColor="bg-blue-400"
         />
         <StatCard
           icon={AlertCircle}
           label="Action Items"
           value={result.actions.length}
-          color="text-orange-400"
-          bg="bg-orange-500/10"
+          iconColor="text-amber-400"
+          iconBg="bg-amber-500/15"
+          dotColor="bg-amber-400"
         />
         <StatCard
           icon={CheckCircle2}
           label="Decisions"
           value={result.decisions.length}
-          color="text-emerald-400"
-          bg="bg-emerald-500/10"
+          iconColor="text-emerald-400"
+          iconBg="bg-emerald-500/15"
+          dotColor="bg-emerald-400"
         />
       </div>
 
       {/* Urgent banner */}
       {urgentCount > 0 && (
-        <div className="mb-6 flex items-center gap-3 rounded-xl border border-red-500/30 bg-red-500/10 px-5 py-4 animate-slide-up">
-          <div className="w-10 h-10 rounded-lg bg-red-500/20 flex items-center justify-center shrink-0">
-            <AlertCircle className="w-5 h-5 text-red-400" />
+        <div className="mb-6 flex items-center gap-3 rounded-2xl border border-rose-500/25 bg-rose-500/[0.08] backdrop-blur-xl px-5 py-4 animate-slide-up shadow-2xl">
+          <div className="w-10 h-10 rounded-xl bg-rose-500/20 flex items-center justify-center shrink-0">
+            <AlertCircle className="w-5 h-5 text-rose-400" />
           </div>
           <div>
-            <p className="text-sm font-bold text-red-300">
+            <p className="text-sm font-bold text-rose-300">
               {urgentCount} urgent item{urgentCount > 1 ? "s" : ""} need{urgentCount === 1 ? "s" : ""} your attention
             </p>
-            <p className="text-xs text-red-400/70">
+            <p className="text-xs text-rose-400/60 mt-0.5">
               Review the action items below — these have immediate deadlines
             </p>
           </div>
@@ -105,7 +110,7 @@ export function Dashboard({ result, onReset }: DashboardProps) {
       <div className="flex justify-center pt-4">
         <button
           onClick={onReset}
-          className="inline-flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-800/80 px-5 py-2.5 text-sm font-medium text-slate-300 transition-all hover:border-slate-600 hover:bg-slate-800 hover:text-white"
+          className="inline-flex items-center gap-2 rounded-xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-xl px-6 py-3 text-sm font-medium text-slate-300 transition-all duration-200 hover:-translate-y-0.5 hover:border-white/[0.15] hover:bg-white/[0.08] hover:text-white shadow-lg"
         >
           Analyze Another Conversation
         </button>
@@ -118,23 +123,28 @@ function StatCard({
   icon: Icon,
   label,
   value,
-  color,
-  bg,
+  iconColor,
+  iconBg,
+  dotColor,
 }: {
   icon: typeof MessageCircle;
   label: string;
   value: number;
-  color: string;
-  bg: string;
+  iconColor: string;
+  iconBg: string;
+  dotColor: string;
 }) {
   return (
-    <div className="flex items-center gap-3 rounded-xl border border-slate-800 bg-slate-900/60 p-4">
-      <div className={`w-10 h-10 rounded-lg ${bg} flex items-center justify-center shrink-0`}>
-        <Icon className={`w-5 h-5 ${color}`} />
+    <div className="flex items-center gap-3 rounded-2xl border border-white/[0.08] bg-white/[0.04] backdrop-blur-xl p-4 shadow-2xl transition-all duration-200 hover:border-white/[0.12] hover:bg-white/[0.06]">
+      <div className={`w-10 h-10 rounded-xl ${iconBg} flex items-center justify-center shrink-0`}>
+        <Icon className={`w-5 h-5 ${iconColor}`} />
       </div>
-      <div className="min-w-0">
-        <p className="text-2xl font-bold text-white leading-none">{value}</p>
-        <p className="text-xs text-slate-500 mt-1 truncate">{label}</p>
+      <div className="min-w-0 flex-1">
+        <div className="flex items-center gap-1.5">
+          <span className={`w-1.5 h-1.5 rounded-full ${dotColor}`}></span>
+          <p className="text-2xl font-bold text-white leading-none tracking-tight">{value}</p>
+        </div>
+        <p className="text-xs text-slate-500 mt-1.5 truncate">{label}</p>
       </div>
     </div>
   );
